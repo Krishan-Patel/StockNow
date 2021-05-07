@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 #SECRET_KEY = '@k_h+0qcd#$pf$zemykd*o9(y(je6lcla#j^2f5sh68_@qa5&5'
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', '@k_h+0qcd#$pf$zemykd*o9(y(je6lcla#j^2f5sh68_@qa5&5')
 # SECURITY WARNING: don't run with debug turned on in production!
-#DEBUG = True
-DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
-ALLOWED_HOSTS = ['frozen-waters-61791.herokuapp.com', '127.0.0.1']
+DEBUG = True
+#DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
+ALLOWED_HOSTS = ['.herokuapp.com', '127.0.0.1']
 
 
 # Application definition
@@ -119,7 +119,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-STATIC_URL = '/static/'
+#STATIC_URL = '/static/'
 LOGIN_REDIRECT_URL = '/' #take you to the home page after loggin in
 
 # Heroku: Update database configuration from $DATABASE_URL.
