@@ -1,0 +1,38 @@
+{% extends "base.html" %} 
+{% block content %}
+<div class="gradient">
+  <h1 class="header">Stock List</h1>
+  {% if stock_list %}
+  <ul>
+    {% for stock in stock_list %}
+    <div class="stockcard">
+      <h2>{{stock.identifier}}</h2>
+      <section>
+        <p class="green">High: {{stock.day_high}}</p>
+        <p class="red">Low: {{stock.day_low}}</p>
+        <p>Current: {{stock.current}}</p>
+      </section>
+      <section>
+        {% if stock.change >= 0 %}
+        <p class="green">Change: {{stock.change}}</p>
+        <p class="green">Percentage Change: {{stock.pchange}}%</p>
+        {% else %}
+        <p class="red">Change: {{stock.change}}</p>
+        <p class="red">Percentage Change: {{stock.pchange}}%</p>
+        {% endif %}
+      </section>
+      <p>Last Updated: {{stock.last_update}}</p>
+      {% if user in stock.favourites.all %}
+      <a href="{% url 'favourite' stock.identifier %}" class="btn2">UNFAVOURITE</a>
+      {% else %}
+      <a href="{% url 'favourite' stock.identifier %}" class="btn2">FAVOURITE</a>
+      {% endif %}
+    </div>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p>There are no stocks available.</p>
+  {% endif %}
+</div>
+ 
+{% endblock %}

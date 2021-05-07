@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% if form.errors %}
+    <p>{{form.errors}}</p>
+  {% endif %}
+<div class="main">
+  <p class="sign">Registration</p>
+  {% if description %}
+  <p>{{ description }} </p>
+  {% endif %}
+  <form class="form1" method="POST"> {% csrf_token %}
+    <input class="un " type="text" placeholder="Username" name="username" required>
+    <input class="pass" type="password"  placeholder="Password" name="password1" required>
+    <input class="pass" type="password"  placeholder="Confirm Password" name="password2" required>
+    <input class="submit" type="submit"/>
+    <input type="hidden" name="next" value="{{ next }}"/>
+                 
+</div>
+{% endblock %}
+

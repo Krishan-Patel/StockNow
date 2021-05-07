@@ -1,0 +1,73 @@
+{% extends "base.html" %} {% block content %}
+<div class="flexbox">
+  <div class="search">
+    <h1>StockNow</h1>
+    <h3>Begin Searching Live Stocks Statistics Below</h3>
+    <div>
+      <form action="" action="GET" next="">
+        {% if error %}
+        <label for="search">Invalid Stock Name Please Try Again</label>
+        {% endif %}
+        <input
+          type="text"
+          placeholder="Search Stocks Now. . ."
+          name="search"
+          required
+        />
+      </form>
+    </div>
+  </div>
+</div>
+<div class="bottom">
+  {% if saved %}
+    <h1 class="header">Favourited Stocks</h1>
+    {% for stock in saved %}
+    <div class="stockcard">
+      <h2>{{stock.identifier}}</h2>
+      <section>
+        <p class="green">High: {{stock.day_high}}</p>
+        <p class="red">Low: {{stock.day_low}}</p>
+        <p>Current: {{stock.current}}</p>
+      </section>
+      <section>
+        {% if stock.change >= 0 %}
+        <p class="green">Change: {{stock.change}}</p>
+        <p class="green">Percentage Change: {{stock.pchange}}%</p>
+        {% else %}
+        <p class="red">Change: {{stock.change}}</p>
+        <p class="red">Percentage Change: {{stock.pchange}}%</p>
+        {% endif %}
+      </section>
+      <p>Last Updated: {{stock.last_update}}</p>
+      <a href="{% url 'favourite' stock.identifier %}" class="btn2">UNFAVOURITE</a>
+    </div>
+    {% endfor %} 
+    {% endif %}
+
+      {% for stock in stocks %}
+      <div class="stockcard">
+        <h2>{{stock.identifier}}</h2>
+        <section>
+          <p class="green">High: {{stock.day_high}}</p>
+          <p class="red">Low: {{stock.day_low}}</p>
+          <p>Current: {{stock.current}}</p>
+        </section>
+        <section>
+          {% if stock.change >= 0 %}
+          <p class="green">Change: {{stock.change}}</p>
+          <p class="green">Percentage Change: {{stock.pchange}}%</p>
+          {% else %}
+          <p class="red">Change: {{stock.change}}</p>
+          <p class="red">Percentage Change: {{stock.pchange}}%</p>
+          {% endif %}
+        </section>
+        <p>Last Updated: {{stock.last_update}}</p>
+        {% if user in stock.favourites.all %}
+        <a href="{% url 'favourite' stock.identifier %}" class="btn2">UNFAVOURITE</a>
+        {% else %} 
+        <a href="{% url 'favourite' stock.identifier %}" class="btn2">FAVOURITE</a>
+        {% endif %}
+      </div>
+      {% endfor %}
+  {% endblock content %}
+</div>
