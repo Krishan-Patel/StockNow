@@ -7,6 +7,7 @@ from django.contrib.auth.forms import UserCreationForm
 # Create your views here.
 
 def Home(request, *args, **kwargs):
+    return render(request, "index.html", {})
     data = Stock.objects.all()
     if not data:
         data = loadData()
@@ -58,9 +59,7 @@ def Home(request, *args, **kwargs):
 
 import requests
 def loadData():
-
     url = "https://latest-stock-price.p.rapidapi.com/price"
-
     querystring = {"Indices":"NIFTY 500"}
     headers = {
         'x-rapidapi-key': "a8e178be2bmsha9d8ae75567c9b5p1f8a0bjsn5002e7f662f5",
