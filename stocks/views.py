@@ -25,7 +25,7 @@ def Home(request, *args, **kwargs):
                 obj.pchange365 = float(stock['perChange365d'])
             obj.save()
             
-    elif timezone.now() - data[0].last_update > timedelta(minutes=30):
+    elif timezone.now() - data[0].last_update > timedelta(minutes=5):
         #print("update")
         stocks = Stock.objects.all()
         data = loadData()
@@ -53,7 +53,7 @@ def Home(request, *args, **kwargs):
             if favourites:
                 return render(request, "index.html", context = {'saved': favourites})
             
-        return render(request, "index.html", {})
+    return render(request, "index.html", {})
 
 
 import requests
