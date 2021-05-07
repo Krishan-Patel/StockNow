@@ -40,20 +40,20 @@ def Home(request, *args, **kwargs):
             stocks[i].save()
     else :
         #print('okay') 
-    name = request.GET.get('search', False)
-    if name:
-        stock = Stock.objects.filter(identifier__iexact = name)
-        if stock:
-            return render(request, "index.html", context = {'stocks': stock})
-        else: 
-            return render(request, "index.html", context = {'error': "Invalid Stock Name"})
-    
-    if not request.user.is_anonymous:
-        favourites = Stock.objects.filter(favourites=request.user)
-        if favourites:
-            return render(request, "index.html", context = {'saved': favourites})
+        name = request.GET.get('search', False)
+        if name:
+            stock = Stock.objects.filter(identifier__iexact = name)
+            if stock:
+                return render(request, "index.html", context = {'stocks': stock})
+            else: 
+                return render(request, "index.html", context = {'error': "Invalid Stock Name"})
         
-    return render(request, "index.html", {})
+        if not request.user.is_anonymous:
+            favourites = Stock.objects.filter(favourites=request.user)
+            if favourites:
+                return render(request, "index.html", context = {'saved': favourites})
+            
+        return render(request, "index.html", {})
 
 
 import requests
