@@ -7,7 +7,6 @@ from django.contrib.auth.forms import UserCreationForm
 # Create your views here.
 
 def Home(request, *args, **kwargs):
-    return render(request, "index.html", {})
     data = Stock.objects.all()
     if not data:
         data = loadData()
