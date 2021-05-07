@@ -26,12 +26,10 @@ def Home(request, *args, **kwargs):
             obj.save()
             
     elif timezone.now() - data[0].last_update > timedelta(minutes=30):
-        print("update")
+        #print("update")
         stocks = Stock.objects.all()
         data = loadData()
-        print(len(data))
         for i in range(len(stocks)):
-            print(i)
             stocks[i].identifier = data[i]['symbol']
             stocks[i].day_high = data[i]['dayHigh']
             stocks[i].day_low = data[i]['dayLow']
@@ -41,7 +39,7 @@ def Home(request, *args, **kwargs):
             stocks[i].last_update = timezone.now()
             stocks[i].save()
     else :
-        print('okay') 
+        #print('okay') 
     name = request.GET.get('search', False)
     if name:
         stock = Stock.objects.filter(identifier__iexact = name)
