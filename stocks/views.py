@@ -4,6 +4,8 @@ from django.utils import timezone
 from datetime import timedelta
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
+from django.views import generic
+import requests
 # Create your views here.
 
 def Home(request, *args, **kwargs):
@@ -23,10 +25,8 @@ def Home(request, *args, **kwargs):
                 obj.pchange365 = 0
             else :
                 obj.pchange365 = float(stock['perChange365d'])
-            obj.save()
-            
+            obj.save()          
     elif timezone.now() - data[0].last_update > timedelta(minutes=5):
-        #print("update")
         stocks = Stock.objects.all()
         data = loadData()
         for i in range(len(stocks)):
@@ -39,7 +39,6 @@ def Home(request, *args, **kwargs):
             stocks[i].last_update = timezone.now()
             stocks[i].save()
     else :
-        #print('okay') 
         name = request.GET.get('search', False)
         if name:
             stock = Stock.objects.filter(identifier__iexact = name)
@@ -56,7 +55,7 @@ def Home(request, *args, **kwargs):
     return render(request, "index.html", {})
 
 
-import requests
+
 def loadData():
     url = "https://latest-stock-price.p.rapidapi.com/price"
     querystring = {"Indices":"NIFTY 500"}
@@ -68,7 +67,7 @@ def loadData():
     response = response.json()
     return response
 
-from django.views import generic
+
 class StockListView(generic.ListView):
     model = Stock
     paginate_by = 25
@@ -90,7 +89,6 @@ def register(request, *args, **kwargs):
     if form.is_valid():
         user = form.save(commit=True)
         user.set_password(form.cleaned_data.get("password1"))
-        # send a confirmation email to verify their account
         #login(request, user)
         return redirect("/")
     context = {
