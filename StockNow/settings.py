@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 #SECRET_KEY = '@k_h+0qcd#$pf$zemykd*o9(y(je6lcla#j^2f5sh68_@qa5&5'
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', '@k_h+0qcd#$pf$zemykd*o9(y(je6lcla#j^2f5sh68_@qa5&5')
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 #DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 ALLOWED_HOSTS = ['.herokuapp.com', '127.0.0.1']
 
@@ -82,6 +82,10 @@ DATABASES = {
     }
 }
 
+## Connects to and uses PostgresSQL Database provided by Heroku
+import dj_database_url 
+db_from_env = dj_database_url.config(conn_max_age=600)
+DATABASES['default'].update(db_from_env)
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
