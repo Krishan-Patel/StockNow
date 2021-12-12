@@ -11,6 +11,18 @@ html, body {
   height: 100%;
 }
 
+#fav-table { 
+  width: 90%;
+  margin-left: 5%;
+  margin-right: 5%;
+  background-color: white;
+  border-radius: 2%;
+}
+
+#searchbox { 
+  box-sizing: content-box;
+}
+
 .flexbox {
   background: linear-gradient(155deg, #55c7ed, #2bb3e0, #3bc1ed);
   background: url(./StockLogo.jpeg);
@@ -23,28 +35,28 @@ html, body {
   color: white;
 }
 
-.search {
+.searchbox {
   margin: 20px;
 }
 
-.search > h3 {
+.searchbox > h3 {
   font-weight: normal;
 }
 
-.search > h1,
-.search > h3 {
+.searchbox > h1,
+.searchbox > h3 {
   color: white;
   margin-bottom: 15px;
   text-shadow: 0 1px #0091c2;
 }
 
-.search > div {
+.searchbox > div {
   display: inline-block;
   position: relative;
   filter: drop-shadow(0 1px #0091c2);
 }
 
-.search > div:after {
+.searchbox > div:after {
   content: "";
   background: white;
   width: 4px;
@@ -53,9 +65,10 @@ html, body {
   top: 40px;
   right: 2px;
   transform: rotate(135deg);
+  box-sizing: content-box;
 }
 
-.search > div > form > input {
+.searchbox > div > form > input {
   color: white;
   font-size: 16px;
   background: transparent;
@@ -68,39 +81,28 @@ html, body {
   transition: width 0.5s;
 }
 
-.search > div > form > input::placeholder {
+.searchbox > div > form > input::placeholder {
   color: #efefef;
   opacity: 0;
   transition: opacity 150ms ease-out;
 }
 
-.search > div > form > input:focus::placeholder {
+.searchbox > div > form > input:focus::placeholder {
   opacity: 1;
 }
 
-.search > div > form >  input:focus,
-.search > div > form > input:not(:placeholder-shown) {
+.searchbox > div > form >  input:focus,
+.searchbox > div > form > input:not(:placeholder-shown) {
   width: 250px;
 }
 
-.stockcard { 
-  margin: 1% 25% 0% 25%;
-  text-align: center;
-  display: flex;
-  justify-content: space-evenly;
-  flex-direction: column;
-  border: 5px solid white;
-  border-radius: 25px;
-  background-color: rgba(255,255,255,1);
-  padding: 0.5%;
-}
 
 section { 
   display: flex;
   justify-content: space-evenly;
 }
 
-.btn { 
+/* .btn { 
   padding: 0.5%;
   color: black;
   background-color: 9ccdea;
@@ -108,7 +110,7 @@ section {
   border: 1px solid white;
   border-radius: 25px;
   box-shadow: blueviolet;
-}
+} */
 
 .btn2 { 
   padding: 0.75%;
@@ -120,6 +122,10 @@ section {
   align-self: center;
   margin-top: 1%;
   color: black;
+}
+
+.bottom { 
+  padding-bottom: 2.5%;
 }
 
 p { 
@@ -136,7 +142,9 @@ p {
 
 .header { 
  /* background-color: #62a8d1; */
-  text-align: center;
+  text-align: left;
+  margin: 0.5% 0 0.5% 5%; 
+  font-family: monospace;
 }
 
 .pagination { 
@@ -152,6 +160,12 @@ p {
 
 .page-links p { 
   padding: 0 10px 0 10px;
+}
+
+.page-current { 
+  text-align: center;
+  align-self: center;
+  margin: 0; 
 }
 
 

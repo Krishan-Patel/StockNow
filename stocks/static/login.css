@@ -1,5 +1,5 @@
 body {
-    background-color: #9ccdea;
+    background-color: #f8f8e8; 
     font-family: 'Ubuntu', sans-serif;
 }
 
@@ -14,7 +14,7 @@ body {
 
 .sign {
     padding-top: 40px;
-    color: #9ccdea;
+    color: black;
     font-family: 'Ubuntu', sans-serif;
     font-weight: bold;
     font-size: 23px;
@@ -75,7 +75,7 @@ font-family: 'Ubuntu', sans-serif;
   cursor: pointer;
     border-radius: 5em;
     color: #fff;
-    background: linear-gradient(to right, #9C27B0, #E040FB);
+    background: linear-gradient(to right, #2740b0, #40a1fb);
     border: 0;
     padding-left: 40px;
     padding-right: 40px;

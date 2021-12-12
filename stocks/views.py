@@ -29,28 +29,45 @@ def Home(request, *args, **kwargs):
     elif timezone.now() - data[0].last_update > timedelta(minutes=5):
         stocks = Stock.objects.all()
         data = loadData()
-        for i in range(len(stocks)):
-            stocks[i].identifier = data[i]['symbol']
-            stocks[i].day_high = data[i]['dayHigh']
-            stocks[i].day_low = data[i]['dayLow']
-            stocks[i].current = data[i]['lastPrice']
-            stocks[i].change = data[i]['change']
-            stocks[i].pchange = data[i]['pChange']
-            stocks[i].last_update = timezone.now()
-            stocks[i].save()
+        if (len(stocks) != len(data)): 
+            Stock.objects.all().delete() 
+            for stock in data:
+                obj = Stock()
+                obj.identifier = stock['symbol']
+                obj.day_high = float(stock['dayHigh'])
+                obj.day_low = float(stock['dayLow'])
+                obj.current = float(stock['lastPrice'])
+                obj.change = float(stock['change'])
+                obj.pchange = float(stock['pChange'])
+                obj.last_update = timezone.now()
+                if stock['perChange365d'] == '-':
+                    obj.pchange365 = 0
+                else :
+                    obj.pchange365 = float(stock['perChange365d'])
+                obj.save() 
+        else: 
+            for i in range(len(stocks)):
+                    stocks[i].identifier = data[i]['symbol']
+                    stocks[i].day_high = data[i]['dayHigh']
+                    stocks[i].day_low = data[i]['dayLow']
+                    stocks[i].current = data[i]['lastPrice']
+                    stocks[i].change = data[i]['change']
+                    stocks[i].pchange = data[i]['pChange']
+                    stocks[i].last_update = timezone.now()
+                    stocks[i].save()                         
     else :
         name = request.GET.get('search', False)
         if name:
-            stock = Stock.objects.filter(identifier__iexact = name)
+            stock = Stock.objects.filter(identifier__istartswith = name)
             if stock:
                 return render(request, "index.html", context = {'stocks': stock})
             else: 
                 return render(request, "index.html", context = {'error': "Invalid Stock Name"})
         
-        if not request.user.is_anonymous:
-            favourites = Stock.objects.filter(favourites=request.user)
-            if favourites:
-                return render(request, "index.html", context = {'saved': favourites})
+    if not request.user.is_anonymous:
+        favourites = Stock.objects.filter(favourites=request.user)
+        if favourites:
+            return render(request, "index.html", context = {'saved': favourites})
             
     return render(request, "index.html", {})
 
